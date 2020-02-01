@@ -2,7 +2,7 @@ import unittest
 from scraper.site_scrapers.thevergescraper import TheVergeScraper
 
 
-class DevByTest(unittest.TestCase):
+class TheVergeTest(unittest.TestCase):
     def setUp(self):
         self.scraper = TheVergeScraper()
 
