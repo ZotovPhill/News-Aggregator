@@ -21,7 +21,8 @@ class OnlinerTest(unittest.TestCase):
     def test_scraping_of_link(self):
         article = self.scraper.get_links()
 
-        self.assertIn("/2020/01/31/wargaming-virus", article)
+        # Paste link located on the first page to search in list of links
+        self.assertIn("/2020/02/03/honor-21", article)
 
 
 if __name__ == "__main__":

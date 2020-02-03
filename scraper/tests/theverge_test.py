@@ -26,8 +26,9 @@ class TheVergeTest(unittest.TestCase):
     def test_scraping_of_link(self):
         article = self.scraper.get_links()
 
+        # Paste link located on the first page to search in list of links
         self.assertIn(
-            "https://www.theverge.com/2020/1/31/21117180/fbi-bezos-hack-amazon-saudi-arabia-nso",
+            "https://www.theverge.com/2020/2/3/21119915/microsoft-surface-hub-2x-cancel-major-software-update-features-release-date",
             article,
         )
 

@@ -25,7 +25,8 @@ class DevByTest(unittest.TestCase):
     def test_scraping_of_link(self):
         article = self.scraper.get_links()
 
-        self.assertIn("/news/ilon-mask-za-chas-razbogatel-na-usd-2-3-mlrd", article)
+        # Paste link located on the first page to search in list of links
+        self.assertIn("/news/v-mit-pridumali-kak-v-10-raz-usilit-signal-wi-fi", article)
 
 
 if __name__ == "__main__":

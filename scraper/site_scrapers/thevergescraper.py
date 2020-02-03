@@ -55,5 +55,5 @@ class TheVergeScraper(SiteScraper):
         header = ". ".join(raw_article_header)
         text = " ".join(raw_article_text)
         text = re.sub("\n+", "", text)
-        text = text.strip("\u200b")
+        text = text.strip(" ")
         return article_name, article_link, header, text
