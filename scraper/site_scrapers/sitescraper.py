@@ -12,8 +12,10 @@ class SiteScraper(ABC):
     """
 
     HEADERS = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit 537.36 (KHTML, like Gecko) Chrome",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) "
+        "AppleWebKit 537.36 (KHTML, like Gecko) Chrome",
+        "Accept": "text/html,application/xhtml+xml, "
+        "application/xml;q=0.9,image/webp,*/*;q=0.8",
     }
 
     def __init__(self):
@@ -35,14 +37,22 @@ class SiteScraper(ABC):
         """
         pass
 
-    def clean_data(
-        self, article_name, article_link, raw_article_header, raw_article_text
-    ):
+    def clean_header(self, raw_article_header):
         """
-        Normalize data and delete extraneous characters.
+        Normalize header and delete extraneous characters.
         """
-        text = " ".join(raw_article_text)
-        text = re.sub("\n+", "", text)
+        article_header = raw_article_header.strip(" ")
+        return article_header
+
+    def clean_text(self, raw_article_text):
+        """
+        Normalize text and delete extraneous characters.
+        """
+        article_text = " ".join(raw_article_text)
         # Delete empty whitespace character
-        text = text.strip("\u200b")
-        return article_name, article_link, raw_article_header, text
+        article_text = re.sub("\n+", "", article_text).strip(" ")
+        return article_text
+
+
+if __name__ == "__main__":
+    print(SiteScraper.HEADERS)

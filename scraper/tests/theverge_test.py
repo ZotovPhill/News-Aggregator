@@ -16,10 +16,10 @@ class TheVergeTest(unittest.TestCase):
             article[1],
             "https://www.theverge.com/2020/1/31/21117180/fbi-bezos-hack-amazon-saudi-arabia-nso",
         )
-        clean = self.scraper.clean_data(*article)
+        clean = self.scraper.clean_header(article[2])
 
         self.assertEqual(
-            clean[2],
+            clean,
             "The FBI is investigating the Bezos hack. The agency is looking into Israeli technology firm NSO and whether its software was involved",
         )
 
@@ -28,7 +28,7 @@ class TheVergeTest(unittest.TestCase):
 
         # Paste link located on the first page to search in list of links
         self.assertIn(
-            "https://www.theverge.com/2020/2/3/21119915/microsoft-surface-hub-2x-cancel-major-software-update-features-release-date",
+            "https://www.theverge.com/2020/2/4/21122982/samsung-galaxy-s20-leaked-images-led-case-winfuture",
             article,
         )
 

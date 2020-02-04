@@ -21,14 +21,15 @@ class OnlinerScraper(SiteScraper):
     def get_links(self):
         req = self.session.get(self.URL, headers=self.HEADERS)
         soup = BeautifulSoup(req.text, features="html5lib")
-        links = []
-        for link in soup.find_all(
-            "a",
-            class_=["news-tidings__stub", "news-tiles__stub"],
-            href=re.compile("^(/2020/)"),
-        ):
-            if link.attrs["href"] is not None:
-                links.append(link.attrs["href"])
+        links = [
+            link.attrs["href"]
+            for link in soup.find_all(
+                "a",
+                class_=["news-tidings__stub", "news-tiles__stub"],
+                href=re.compile("^(/2020/)"),
+            )
+            if link.attrs["href"] is not None
+        ]
         return links
 
     def scrap_article(self, page):

@@ -22,7 +22,7 @@ class OnlinerTest(unittest.TestCase):
         article = self.scraper.get_links()
 
         # Paste link located on the first page to search in list of links
-        self.assertIn("/2020/02/03/honor-21", article)
+        self.assertIn("/2020/02/04/samsung-galaxy-s20-2", article)
 
 
 if __name__ == "__main__":

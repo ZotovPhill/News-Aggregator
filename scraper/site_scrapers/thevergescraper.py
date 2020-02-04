@@ -1,5 +1,3 @@
-import re
-
 from bs4 import BeautifulSoup
 
 from scraper.site_scrapers.sitescraper import SiteScraper
@@ -21,17 +19,23 @@ class TheVergeScraper(SiteScraper):
     def get_links(self):
         req = self.session.get(self.URL, headers=self.HEADERS)
         soup = BeautifulSoup(req.text, features="html5lib")
-        links = []
-        for link in soup.findAll(
-            "a", attrs={"data-analytics-link": ["article", "feature"]},
-        ):
-            if link.attrs["href"] is not None:
-                links.append(link.attrs["href"])
+        links = [
+            link.attrs["href"]
+            for link in soup.findAll(
+                "a", attrs={"data-analytics-link": ["article", "feature"]},
+            )
+            if link.attrs["href"] is not None
+        ]
         return links
 
     def scrap_article(self, page):
         req = self.session.get(page, headers=self.HEADERS)
         soup = BeautifulSoup(req.text, features="html5lib")
+
+        article_name = "The Verge"
+
+        article_link = page
+
         raw_article_header = [
             header.get_text()
             for header in soup.find("div", class_="c-entry-hero").find_all(
@@ -44,16 +48,9 @@ class TheVergeScraper(SiteScraper):
                 ["p", "h3", "li", "a"], recursive=False
             )
         ]
-        article_link = page
-        article_name = "The Verge"
         return article_name, article_link, raw_article_header, raw_article_text
 
-    def clean_data(
-        self, article_name, article_link, raw_article_header, raw_article_text
-    ):
+    def clean_header(self, raw_article_header):
         raw_article_header.pop(0)
-        header = ". ".join(raw_article_header)
-        text = " ".join(raw_article_text)
-        text = re.sub("\n+", "", text)
-        text = text.strip(" ")
-        return article_name, article_link, header, text
+        article_header = ". ".join(raw_article_header).strip(" ")
+        return article_header
