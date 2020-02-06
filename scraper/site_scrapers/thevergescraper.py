@@ -22,20 +22,18 @@ class TheVergeScraper(SiteScraper):
         links = [
             link.attrs["href"]
             for link in soup.findAll(
-                "a", attrs={"data-analytics-link": ["article", "feature"]},
+                "a", attrs={"data-analytics-link": ["article", "feature", "review"]},
             )
             if link.attrs["href"] is not None
         ]
-        return links
+        return set(links)
 
     def scrap_article(self, page):
         req = self.session.get(page, headers=self.HEADERS)
         soup = BeautifulSoup(req.text, features="html5lib")
 
         article_name = "The Verge"
-
         article_link = page
-
         raw_article_header = [
             header.get_text()
             for header in soup.find("div", class_="c-entry-hero").find_all(

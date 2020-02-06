@@ -28,7 +28,7 @@ class TheVergeTest(unittest.TestCase):
 
         # Paste link located on the first page to search in list of links
         self.assertIn(
-            "https://www.theverge.com/2020/2/4/21122982/samsung-galaxy-s20-leaked-images-led-case-winfuture",
+            "https://www.theverge.com/this-is-my-next/2018/11/30/18118550/best-streaming-video-player-4k-tv-roku-apple-amazon",
             article,
         )
 

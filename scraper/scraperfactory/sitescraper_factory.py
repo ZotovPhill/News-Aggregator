@@ -42,12 +42,14 @@ class SiteScraperFactory:
             scraper = self._create_scraper(site_name)
             links = scraper.get_links()
             for link in links:
-                (
-                    *article_info,
-                    raw_article_header,
-                    raw_article_text,
-                ) = scraper.scrap_article(link)
-
+                try:
+                    (
+                        *article_info,
+                        raw_article_header,
+                        raw_article_text,
+                    ) = scraper.scrap_article(link)
+                except Exception:
+                    continue
                 article_header = scraper.clean_header(raw_article_header)
                 article_text = scraper.clean_text(raw_article_text)
                 article = Article(*article_info, article_header, article_text)

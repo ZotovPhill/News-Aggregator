@@ -29,7 +29,7 @@ class DevByScraper(SiteScraper):
             )
             if link.attrs["href"] is not None
         ]
-        return links
+        return set(links)
 
     def scrap_article(self, page):
         req = self.session.get(self.URL + page, headers=self.HEADERS)
@@ -41,6 +41,7 @@ class DevByScraper(SiteScraper):
         raw_article_text = [
             text.get_text()
             for text in soup.find("article").find_all(["p", "h4", "h5"], recursive=True)
+            if not text.script
         ]
         return article_name, article_link, raw_article_header, raw_article_text
 

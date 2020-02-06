@@ -49,10 +49,5 @@ class SiteScraper(ABC):
         Normalize text and delete extraneous characters.
         """
         article_text = " ".join(raw_article_text)
-        # Delete empty whitespace character
         article_text = re.sub("\n+", "", article_text).strip(" ")
         return article_text
-
-
-if __name__ == "__main__":
-    print(SiteScraper.HEADERS)

@@ -30,7 +30,7 @@ class OnlinerScraper(SiteScraper):
             )
             if link.attrs["href"] is not None
         ]
-        return links
+        return set(links)
 
     def scrap_article(self, page):
         req = self.session.get(self.URL + page, headers=self.HEADERS)
