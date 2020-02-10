@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form method="post">
+    {% for site_articles, articles_list in news_feed.items() %}
+    <h2 class="article-title"><a href="https://dev.by/news/">{{ site_articles }}</a></h2>
+    {% for article in articles_list %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <h3 class="article-title">{{ article['header'] }}</h3>
+                <small class="text-muted">{{ article['_name'] }}</small>
+            </div>
+            <div class="article-metadata">
+                <a class="article-item mr-2" href="{{ article['link']}}">{{ article['link']}}</a>
+            </div>
+            <div class="article-metadata">
+                {{checkbox_label}} <input type="checkbox" name="check_article" value="{{article}}">
+            </div>
+            <p class="article-content">{{ article['text'] }}</p>
+        </div>
+    </article>
+    {% endfor %}
+    {% endfor %}
+    <div>
+        <button type="submit" class="btn btn-secondary btn-lg submit-button">Submit</button>
+    </div>
+</form>
+{% endblock content %}

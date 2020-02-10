@@ -1,5 +1,3 @@
-import re
-
 import requests
 
 from abc import abstractmethod, ABC
@@ -37,17 +35,10 @@ class SiteScraper(ABC):
         """
         pass
 
-    def clean_header(self, raw_article_header):
+    def clean_article(self, name, link, raw_header, raw_text):
         """
-        Normalize header and delete extraneous characters.
+        Normalize header and text and delete extraneous characters.
         """
-        article_header = raw_article_header.strip(" ")
-        return article_header
-
-    def clean_text(self, raw_article_text):
-        """
-        Normalize text and delete extraneous characters.
-        """
-        article_text = " ".join(raw_article_text)
-        article_text = re.sub("\n+", "", article_text).strip(" ")
-        return article_text
+        header = self.clean_header(raw_header)
+        text = self.clean_text(raw_text)
+        return name, link, header, text

@@ -7,10 +7,12 @@ from scraper.site_scrapers.sitescraper import SiteScraper
 from scraper.site_scrapers.devbyscraper import DevByScraper
 from scraper.site_scrapers.thevergescraper import TheVergeScraper
 from scraper.site_scrapers.onlinerscraper import OnlinerScraper
+from scraper.scraperfactory.abstract_factory import AbstractScraperFactory
+from multiprocessing import Pool
 import time
 
 
-class SiteScraperFactory:
+class MultiprocessingScraperFactory(AbstractScraperFactory):
     """
     The SiteScraperFactory declares the factory method that return an object of
     a SiteScraper class. It contains the logic for scraping articles, that
@@ -42,26 +44,24 @@ class SiteScraperFactory:
         the recieved links and scrape information from that page. Grab errors
         from requests exception. Return list of dictionary based articles.
         """
-        news_list = []
         try:
             scraper = self._create_scraper(site_name)
             links = scraper.get_links()
-            for link in links:
-                try:
-                    raw_article = scraper.scrap_article(link)
-                except Exception:
-                    continue
-                cleared_article = scraper.clean_article(*raw_article)
-                article = Article(*cleared_article)
-                news_list.append(article.__dict__)
+            with Pool(10) as p:
+                article_list = p.map(scraper.scrap_article, links)
+            new_list = []
+            for article in article_list:
+                cleared_article = scraper.clean_article(*article)
+                a = Article(*cleared_article)
+                new_list.append(a.__dict__)
         except Exception as e:
             return str(e)
-        return news_list
+        return new_list
 
 
 if __name__ == "__main__":
     start_time = time.time()
-    sitescr = SiteScraperFactory()
-    sitescr.scrap_all_articles("dev.by")
+    multi = MultiprocessingScraperFactory()
+    multi.scrap_all_articles("dev.by")
     result_time = time.time() - start_time
     print(result_time)

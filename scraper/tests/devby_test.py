@@ -27,7 +27,7 @@ class DevByTest(unittest.TestCase):
 
         # Paste link located on the first page to search in list of links
         self.assertIn(
-            "/news/wargaming-food", article,
+            "/news/kolonka", article,
         )
 
 

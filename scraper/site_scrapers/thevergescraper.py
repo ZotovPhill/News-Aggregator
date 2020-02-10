@@ -52,3 +52,7 @@ class TheVergeScraper(SiteScraper):
         raw_article_header.pop(0)
         article_header = ". ".join(raw_article_header).strip(" ")
         return article_header
+
+    def clean_text(self, raw_article_text):
+        article_text = " ".join(raw_article_text).strip(" ")
+        return article_text

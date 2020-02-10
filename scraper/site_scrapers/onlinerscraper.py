@@ -46,3 +46,11 @@ class OnlinerScraper(SiteScraper):
             if not text.strong
         ]
         return article_name, article_link, raw_article_header, raw_article_text
+
+    def clean_header(self, raw_article_header):
+        article_header = raw_article_header.strip(" ")
+        return article_header
+
+    def clean_text(self, raw_article_text):
+        article_text = " ".join(raw_article_text).strip(" ")
+        return article_text

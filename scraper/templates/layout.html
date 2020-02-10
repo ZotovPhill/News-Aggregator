@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <title>Welcome</title>
+
+</head>
+
+<body>
+    <nav id="navbar" class="navbar navbar-expand-md bg-dark fixed-top nav-justified bd-nav-color">
+        <!-- Nav-button(hamburger) -->
+        <button class="navbar-toggler fa-2x" type="button" data-target="#nav-scroll" data-toggle="collapse">
+            <span class="navbar-toggler-icon float-none"></span>
+        </button>
+        <!-- Nav-into-toggler -->
+        <div class="collapse navbar-collapse" id="nav-scroll">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home')}}"><i class="far fa-newspaper fa-2x"
+                            aria-hidden="true"></i></a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item Dropdown">
+                    <a id="homeDropdown" class="nav-link nav-item dropdown-toggle" data-toggle="dropdown" href="#"
+                        aria-haspopup="true" aria-expanded="false">News</a>
+                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="homeDropdown">
+                        <a class="dropdown-item" href="{{url_for('get_news', type='else')}}">All</a>
+                        <a class="dropdown-item"
+                            href="{{url_for('get_single_news', site='dev.by', type='else')}}">Dev.by</a>
+                        <a class="dropdown-item"
+                            href="{{url_for('get_single_news', site='onliner', type='else')}}">TechOnliner.by</a>
+                        <a class="dropdown-item"
+                            href="{{url_for('get_single_news', site='theverge', type='else')}}">TheVerge.com</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('multinews', type='else')}}">Multinews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('read_later', type='else')}}">SavedArticle</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Logo -->
+        <label for="colFormLabelLg" class="col-sm-0 col-form-label col-form-label-lg name-label">
+            Breaking Tech News...
+        </label>
+        <a class="navbar-brand ml-auto" href="#"><i class="fas fa-globe-europe fa-2x"></i></a>
+
+    </nav>
+
+    <!-- Home page picture -->
+    {% block main %}{% endblock main %}
+
+    <!-- Article listing -->
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="myFooter">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-lg-3 logo-footer text-center">
+                    <a href="{{url_for('home')}}"><i class="fas fa-globe-europe fa-5x"></i></a>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <ul>
+                        <h5>Main Title</h5>
+                        <li><a href="{{url_for('home')}}">Home</a></li>
+                        <li><a href="{{url_for('multinews', type='else')}}">Multinews</a></li>
+                        <li><a href="{{url_for('read_later', type='else')}}">Left for Later</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <ul>
+                        <h5>News</h5>
+                        <li><a href="{{url_for('get_news', type='else')}}">All</a></li>
+                        <li><a href="{{url_for('get_single_news', site='dev.by', type='else')}}">Dev.by</a></li>
+                        <li><a href="{{url_for('get_single_news', site='onliner', type='else')}}">Tech Onliner</a></li>
+                        <li><a href="{{url_for('get_single_news', site='theverge', type='else')}}">The Verge</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <ul>
+                        <h5>JSON version</h5>
+                        <li><a href="{{url_for('get_news', type='json')}}">All</a></li>
+                        <li><a href="{{url_for('get_single_news', site='dev.by', type='json')}}">Dev.by</a></li>
+                        <li><a href="{{url_for('get_single_news', site='onliner', type='json')}}">Tech Onliner</a></li>
+                        <li><a href="{{url_for('get_single_news', site='theverge', type='json')}}">The Verge</a></li>
+                        <li><a href="{{url_for('read_later', type='json')}}">Left for Later</a></li>
+
+
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-lg-2">
+                    <ul>
+                        <h5><a href="aboutPage.html">Powered By</a></h5>
+                        <a href="https://www.python.org/" class="python"><i class="fab fa-python fa-2x"></i></a>
+                        <a href="https://requests.readthedocs.io/en/master/" class="mysql"><i
+                                class="fab fa-replyd fa-2x"></i></a>
+                        <a href="https://www.crummy.com/software/BeautifulSoup/" class="mysql"><i
+                                class="fab fa-stripe-s fa-2x"></i></a>
+                        <a href="https://www.mysql.com/" class="mysql"><i class="fas fa-database fa-2x"></i></a>
+                        <a href="https://getbootstrap.com/" class="mysql"><i class="fas fa-broom fa-2x"></i></a>
+                        <a href="https://github.com/ZotovPhill" class="github"><i class="fab fa-github fa-2x"></i></a>
+                    </ul>
+                </div>
+
+                <div class="row text-center nopadding">
+                    <div class="col-md-6 align-center info">
+                        <h5><a href="#">Prohibition of the use of copyright material</a></h5>
+
+                        <p> It is forbidden to publicly post copyrighted material without the
+                            permission of the author or other copyright holder. All copyright
+                            material is posted on the user's local machine and in a non-public
+                            database, and is used exclusively for educational purposes and for analysis
+                        </p>
+                    </div>
+                    <div class="col-md-6 align-center info">
+                        <h5><a href="#">Protection of movable property</a></h5>
+
+                        <p>Your data collection actions can be regarded as an encroachment on
+                            movable property, therefore we strongly recommend that you familiarize
+                            yourself with the user agreement posted on the analyzed site, also be
+                            aware of what you are doing and what code you are running in case your
+                            scraper “drops” or restricts server performance, this can be regarded as causing "harm".
+                        </p>
+                    </div>
+                    <div class="col-md-12 align-center info">
+                        <p>Copyright, 2020—2023 PyScrapTech.by</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <!-- Stick dropdown menu on click -->
+    <script>
+        $('.dropdown-menu').click(function (e) {
+            e.stopPropagation();
+        });
+    </script>
+
+    <!-- Hide navbar on scroll down and show if scroll up -->
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                document.getElementById("navbar").style.top = "-90px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
+
+</body>
+
+</html>
